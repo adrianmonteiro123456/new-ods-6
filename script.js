@@ -1,233 +1,146 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Menu mobile
-    const menuToggle = document.querySelector('.menu-toggle');
-    const mobileNav = document.querySelector('.mobile-nav');
-    
-    menuToggle.addEventListener('click', function() {
-        mobileNav.classList.toggle('active');
-    });
-    
-    // Fechar menu ao clicar em um link
-    const mobileLinks = document.querySelectorAll('.mobile-nav a');
-    mobileLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            mobileNav.classList.remove('active');
-        });
-    });
-    
-    // Gráfico de indicadores
-    const ctx = document.getElementById('graficoIndicadores').getContext('2d');
-    const chart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Norte', 'Nordeste', 'Centro-Oeste', 'Sudeste', 'Sul'],
-            datasets: [
-                {
-                    label: 'Acesso à Água Potável',
-                    data: [75, 80, 88, 92, 90],
-                    backgroundColor: '#0099CC',
-                    borderColor: '#006699',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Saneamento Básico',
-                    data: [45, 50, 65, 75, 70],
-                    backgroundColor: '#66CC66',
-                    borderColor: '#339933',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Qualidade da Água',
-                    data: [65, 70, 80, 85, 82],
-                    backgroundColor: '#66CCCC',
-                    borderColor: '#339999',
-                    borderWidth: 1
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    max: 100,
-                    title: {
-                        display: true,
-                        text: 'Percentual (%)'
-                    }
-                }
-            },
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            return context.dataset.label + ': ' + context.raw + '%';
-                        }
-                    }
-                }
-            }
-        }
-    });
-    
-    // Dados para a tabela
-    const dados = [
-        { regiao: 'Norte', agua: 75, saneamento: 45, qualidade: 65, ano: 2023 },
-        { regiao: 'Nordeste', agua: 80, saneamento: 50, qualidade: 70, ano: 2023 },
-        { regiao: 'Centro-Oeste', agua: 88, saneamento: 65, qualidade: 80, ano: 2023 },
-        { regiao: 'Sudeste', agua: 92, saneamento: 75, qualidade: 85, ano: 2023 },
-        { regiao: 'Sul', agua: 90, saneamento: 70, qualidade: 82, ano: 2023 },
-        // Dados para 2022
-        { regiao: 'Norte', agua: 72, saneamento: 42, qualidade: 62, ano: 2022 },
-        { regiao: 'Nordeste', agua: 78, saneamento: 48, qualidade
-        // Continuação do script.js após o gráfico
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ODS 6 - Água Potável e Saneamento</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="img/logo-ods6.png" alt="Logo ODS 6">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Início</a></li>
+                <li><a href="#metas">Metas</a></li>
+                <li><a href="#indicadores">Indicadores</a></li>
+                <li><a href="#projetos">Projetos</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    // Preencher tabela com dados
-    const tabelaBody = document.getElementById('dados-tabela');
-    
-    function preencherTabela(dados) {
-        tabelaBody.innerHTML = '';
-        dados.forEach(item => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${item.regiao}</td>
-                <td>${item.agua}%</td>
-                <td>${item.saneamento}%</td>
-                <td>${item.qualidade}%</td>
-                <td>${item.ano}</td>
-            `;
-            tabelaBody.appendChild(row);
-        });
-    }
-    
-    // Filtros de dados
-    const filtroRegiao = document.getElementById('regiao');
-    const filtroAno = document.getElementById('ano');
-    const filtroTipo = document.getElementById('tipo');
-    
-    function filtrarDados() {
-        const regiao = filtroRegiao.value;
-        const ano = filtroAno.value;
-        
-        let dadosFiltrados = dados.filter(item => {
-            return (regiao === 'todos' || item.regiao.toLowerCase().includes(regiao)) && 
-                   (ano === 'todos' || item.ano.toString() === ano);
-        });
-        
-        preencherTabela(dadosFiltrados);
-        
-        // Atualizar gráfico com os dados filtrados
-        if (regiao === 'todos') {
-            atualizarGraficoComDadosAgregados(dadosFiltrados);
-        }
-    }
-    
-    function atualizarGraficoComDadosAgregados(dadosFiltrados) {
-        const regioes = ['Norte', 'Nordeste', 'Centro-Oeste', 'Sudeste', 'Sul'];
-        
-        const dadosAgua = regioes.map(regiao => {
-            const item = dadosFiltrados.find(d => d.regiao === regiao && d.ano === parseInt(filtroAno.value));
-            return item ? item.agua : 0;
-        });
-        
-        const dadosSaneamento = regioes.map(regiao => {
-            const item = dadosFiltrados.find(d => d.regiao === regiao && d.ano === parseInt(filtroAno.value));
-            return item ? item.saneamento : 0;
-        });
-        
-        const dadosQualidade = regioes.map(regiao => {
-            const item = dadosFiltrados.find(d => d.regiao === regiao && d.ano === parseInt(filtroAno.value));
-            return item ? item.qualidade : 0;
-        });
-        
-        chart.data.datasets[0].data = dadosAgua;
-        chart.data.datasets[1].data = dadosSaneamento;
-        chart.data.datasets[2].data = dadosQualidade;
-        chart.update();
-    }
-    
-    // Event listeners para filtros
-    filtroRegiao.addEventListener('change', filtrarDados);
-    filtroAno.addEventListener('change', filtrarDados);
-    filtroTipo.addEventListener('change', function() {
-        // Mostrar/ocultar colunas da tabela baseado no tipo selecionado
-        const colunas = document.querySelectorAll('tbody td, th');
-        const tipo = this.value;
-        
-        colunas.forEach((col, index) => {
-            if (index % 5 === 0) return; // Sempre mostra a coluna de região
-            
-            if (tipo === 'todos') {
-                col.style.display = '';
-            } else if (
-                (tipo === 'agua' && (index % 5 === 1)) ||
-                (tipo === 'saneamento' && (index % 5 === 2)) ||
-                (tipo === 'qualidade' && (index % 5 === 3))
-            ) {
-                col.style.display = '';
-            } else if (index % 5 !== 4) { // Mantém a coluna de ano visível
-                col.style.display = 'none';
-            }
-        });
-    });
-    
-    // Inicializar tabela com todos os dados
-    preencherTabela(dados);
-    
-    // Formulário de contato
-    const formContato = document.getElementById('formulario-contato');
-    
-    formContato.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const nome = document.getElementById('nome').value;
-        const email = document.getElementById('email').value;
-        const mensagem = document.getElementById('mensagem').value;
-        
-        // Simular envio (em uma aplicação real, seria uma requisição AJAX)
-        console.log('Mensagem enviada:', { nome, email, mensagem });
-        
-        alert('Obrigado por sua mensagem! Entraremos em contato em breve.');
-        formContato.reset();
-    });
-    
-    // Newsletter
-    const newsletterForm = document.getElementById('newsletter-form');
-    
-    newsletterForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const email = this.querySelector('input').value;
-        
-        // Simular cadastro
-        console.log('Email cadastrado:', email);
-        alert('Obrigado por se inscrever em nossa newsletter!');
-        this.reset();
-    });
-    
-    // Acessibilidade
-    const btnContraste = document.getElementById('contraste');
-    const btnFonteMais = document.getElementById('fonte-mais');
-    const btnFonteMenos = document.getElementById('fonte-menos');
-    
-    btnContraste.addEventListener('click', function() {
-        document.body.classList.toggle('alto-contraste');
-        
-        // Salvar preferência no localStorage
-        if (document.body.classList.contains('alto-contraste')) {
-            localStorage.setItem('altoContraste', 'true');
-        } else {
-            localStorage.removeItem('altoContraste');
-        }
-    });
-    
-    btnFonteMais.addEventListener('click', function() {
-        alterarTamanhoFonte(1);
-    });
-    
-    btnFonteMenos.addEventListener('click', function() {
-        alterarTamanhoFonte(-1);
-    });
-    
-    function alterarTamanhoFonte
+    <main>
+        <section class="principal">
+            <h1>ODS 6 – Água Potável e Saneamento</h1>
+            <p>Garantir a disponibilidade e gestão sustentável da água e saneamento para todos.</p>
+            <div class="indicadores-rapidos">
+                <div class="grafico">
+                    <h3>Acesso à Água Potável</h3>
+                    <canvas id="aguaPotavelChart"></canvas>
+                </div>
+                <div class="grafico">
+                    <h3>Saneamento Básico</h3>
+                    <canvas id="saneamentoBasicoChart"></canvas>
+                </div>
+                <div class="grafico">
+                    <h3>Qualidade da Água</h3>
+                    <canvas id="qualidadeAguaChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="metas" class="destacadas">
+            <h2>Metas</h2>
+            <ul class="lista-metas">
+                <li><a href="#">6.1 Acesso universal e equitativo à água potável e segura</a></li>
+                <li><a href="#">6.2 Acesso a saneamento e higiene adequados e equitativos</a></li>
+                <li><a href="#">6.3 Melhorar a qualidade da água, tratamento de efluentes e reutilização</a></li>
+                <li><a href="#">6.4 Aumentar a eficiência do uso da água em todos os setores</a></li>
+                <li><a href="#">6.5 Implementar a gestão integrada dos recursos hídricos</a></li>
+                <li><a href="#">6.6 Proteger e restaurar ecossistemas relacionados com a água</a></li>
+                <li><a href="#">6.a Expandir a cooperação internacional e o apoio aos países em desenvolvimento</a></li>
+                <li><a href="#">6.b Apoiar e fortalecer a participação das comunidades locais</a></li>
+            </ul>
+        </section>
+
+        <section id="indicadores" class="destacadas">
+            <h2>Indicadores</h2>
+            <div class="painel-indicadores">
+                <div class="filtros">
+                    <label for="regiao">Região:</label>
+                    <select id="regiao">
+                        <option value="todos">Todas</option>
+                        <option value="norte">Norte</option>
+                        <option value="nordeste">Nordeste</option>
+                        <option value="centro-oeste">Centro-Oeste</option>
+                        <option value="sudeste">Sudeste</option>
+                        <option value="sul">Sul</option>
+                    </select>
+                    <label for="ano">Ano:</label>
+                    <select id="ano">
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                    </select>
+                    <label for="tipo-dado">Tipo de Dado:</label>
+                    <select id="tipo-dado">
+                        <option value="acesso-agua">Acesso à Água Potável</option>
+                        <option value="saneamento-basico">Saneamento Básico</option>
+                        <option value="qualidade-agua">Qualidade da Água</option>
+                    </select>
+                    <button id="filtrar">Filtrar</button>
+                </div>
+                <div id="mapa-brasil">
+                    <p>Mapa interativo será carregado aqui.</p>
+                </div>
+                <div id="dados-filtrados">
+                    <p>Dados filtrados serão exibidos aqui.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="projetos" class="destacadas">
+            <h2>Projetos em Andamento</h2>
+            <div class="lista-projetos">
+                <article>
+                    <h3>Projeto 1: Água para Todos no Sertão</h3>
+                    <p>Descrição breve do projeto e seus objetivos...</p>
+                    <a href="#">Saiba Mais</a>
+                </article>
+                <article>
+                    <h3>Projeto 2: Saneamento Ecológico em Comunidades Ribeirinhas</h3>
+                    <p>Descrição breve do projeto e seus objetivos...</p>
+                    <a href="#">Saiba Mais</a>
+                </article>
+            </div>
+        </section>
+
+        <section id="servicos-brasil" class="destacadas">
+            <h2>Serviços e Informações do Brasil</h2>
+            <div class="servicos-lista">
+                <a href="#">Governo Digital</a>
+                <a href="#">ANA (Agência Nacional de Águas e Saneamento Básico)</a>
+                <a href="#">ONU Brasil</a>
+            </div>
+        </section>
+
+        <section id="contato">
+            <h2>Contato</h2>
+            <p>Entre em contato conosco para mais informações.</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="links-institucionais">
+            <a href="#">Governo Digital</a>
+            <a href="#">ANA</a>
+            <a href="#">ONU</a>
+        </div>
+        <div class="informacoes-contato">
+            <p>Endereço: [Inserir Endereço]</p>
+            <p>Telefone: [Inserir Telefone]</p>
+            <p>Email: [Inserir Email]</p>
+        </div>
+        <div class="redes-sociais">
+            <a href="#"><img src="img/facebook.png" alt="Facebook"></a>
+            <a href="#"><img src="img/twitter.png" alt="Twitter"></a>
+            <a href="#"><img src="img/instagram.png" alt="Instagram"></a>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>
