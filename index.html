@@ -4,442 +4,496 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ODS 6 - Água Potável e Saneamento | ONU</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="Objetivo de Desenvolvimento Sustentável 6 - Assegurar a disponibilidade e gestão sustentável da água e saneamento para todos">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/acessibilidade.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Barra de Acessibilidade -->
+    <div class="accessibility-bar">
+        <button id="contrast-btn">Alto Contraste</button>
+        <button id="font-increase">A+</button>
+        <button id="font-decrease">A-</button>
+        <button id="speech-btn">Ouvir Conteúdo</button>
+        <div class="language-selector">
+            <button class="lang-btn active" data-lang="pt">PT</button>
+            <button class="lang-btn" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="es">ES</button>
+        </div>
+    </div>
+
     <!-- Cabeçalho -->
-    <header class="header">
-        <div class="container">
+    <header class="main-header">
+        <div class="header-container">
             <div class="logo-container">
-                <img src="https://brasil.un.org/profiles/undg_brasil/themes/custom/undg/images/SDG-6.png" alt="ODS 6 Logo" class="logo">
-                <div class="language-selector">
-                    <button class="lang-btn active" data-lang="pt">PT</button>
-                    <button class="lang-btn" data-lang="en">EN</button>
-                    <button class="lang-btn" data-lang="es">ES</button>
+                <img src="images/logo-onu.png" alt="Logo ONU e ODS 6" class="logo">
+                <div class="logo-text">
+                    <h1>ODS 6</h1>
+                    <p>Água Potável e Saneamento</p>
                 </div>
             </div>
             
-            <nav class="nav">
+            <nav class="main-nav">
+                <button class="hamburger" aria-label="Menu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
                 <ul class="nav-list">
-                    <li><a href="#home" class="active">Início</a></li>
-                    <li><a href="#goals">Metas</a></li>
-                    <li><a href="#indicators">Indicadores</a></li>
-                    <li><a href="#projects">Projetos</a></li>
-                    <li><a href="#about">Quem Somos</a></li>
-                    <li><a href="#contact">Contato</a></li>
+                    <li><a href="#inicio" class="active" data-i18n="menu.home">Início</a></li>
+                    <li><a href="#metas" data-i18n="menu.goals">Metas</a></li>
+                    <li><a href="#indicadores" data-i18n="menu.indicators">Indicadores</a></li>
+                    <li><a href="#projetos" data-i18n="menu.projects">Projetos</a></li>
+                    <li><a href="#quem-somos" data-i18n="menu.about">Quem Somos</a></li>
+                    <li><a href="#contato" data-i18n="menu.contact">Contato</a></li>
+                    <li><a href="#blog" data-i18n="menu.blog">Blog</a></li>
                 </ul>
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
             </nav>
         </div>
     </header>
 
-    <!-- Seção Principal -->
-    <section id="home" class="hero">
-        <div class="container">
-            <h1 class="hero-title">ODS 6 – Água Potável e Saneamento</h1>
-            <p class="hero-text">Garantir a disponibilidade e gestão sustentável da água e saneamento para todos até 2030</p>
-            <a href="#goals" class="cta-button">Conheça as Metas</a>
+    <!-- Seção Hero -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h2 data-i18n="hero.title">ODS 6 – Água Potável e Saneamento</h2>
+            <p class="hero-description" data-i18n="hero.description">Assegurar a disponibilidade e gestão sustentável da água e saneamento para todos até 2030</p>
+            <a href="#metas" class="cta-button" data-i18n="hero.button">Conheça as Metas</a>
+        </div>
+        <div class="hero-image">
+            <img src="images/water-drop.jpg" alt="Gota d'água caindo em um lago" loading="lazy">
         </div>
     </section>
 
-    <!-- Indicadores Rápidos -->
-    <section class="quick-stats">
-        <div class="container">
-            <h2 class="section-title">Indicadores Globais</h2>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <i class="fas fa-tint stat-icon"></i>
-                    <h3>Acesso à Água Potável</h3>
-                    <div class="stat-value" id="water-access">71%</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 71%"></div>
-                    </div>
-                    <p>População global com acesso seguro</p>
+    <!-- Seção de Indicadores Rápidos -->
+    <section class="quick-indicators">
+        <h2 data-i18n="indicators.title">Indicadores Globais</h2>
+        <div class="indicators-grid">
+            <div class="indicator-card">
+                <div class="indicator-icon">
+                    <i class="fas fa-tint"></i>
                 </div>
-                <div class="stat-card">
-                    <i class="fas fa-toilet stat-icon"></i>
-                    <h3>Saneamento Básico</h3>
-                    <div class="stat-value" id="sanitation">45%</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 45%"></div>
-                    </div>
-                    <p>População com saneamento gerenciado</p>
+                <h3 data-i18n="indicators.water">Acesso à Água Potável</h3>
+                <div class="indicator-chart" id="water-chart"></div>
+                <p class="indicator-value">74%</p>
+                <p class="indicator-description" data-i18n="indicators.water_desc">Da população global tem acesso seguro</p>
+            </div>
+            
+            <div class="indicator-card">
+                <div class="indicator-icon">
+                    <i class="fas fa-toilet"></i>
                 </div>
-                <div class="stat-card">
-                    <i class="fas fa-recycle stat-icon"></i>
-                    <h3>Tratamento de Água</h3>
-                    <div class="stat-value" id="water-treatment">56%</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 56%"></div>
-                    </div>
-                    <p>Águas residuais tratadas adequadamente</p>
+                <h3 data-i18n="indicators.sanitation">Saneamento Básico</h3>
+                <div class="indicator-chart" id="sanitation-chart"></div>
+                <p class="indicator-value">54%</p>
+                <p class="indicator-description" data-i18n="indicators.sanitation_desc">Da população global com saneamento seguro</p>
+            </div>
+            
+            <div class="indicator-card">
+                <div class="indicator-icon">
+                    <i class="fas fa-recycle"></i>
                 </div>
+                <h3 data-i18n="indicators.quality">Qualidade da Água</h3>
+                <div class="indicator-chart" id="quality-chart"></div>
+                <p class="indicator-value">60%</p>
+                <p class="indicator-description" data-i18n="indicators.quality_desc">De corpos d'água com boa qualidade</p>
             </div>
         </div>
     </section>
 
     <!-- Seção de Metas -->
-    <section id="goals" class="goals-section">
-        <div class="container">
-            <h2 class="section-title">As 8 Metas do ODS 6</h2>
-            <div class="goals-grid">
-                <div class="goal-card">
-                    <div class="goal-number">6.1</div>
-                    <h3>Água Potável Universal</h3>
-                    <p>Até 2030, alcançar o acesso universal e equitativo a água potável e segura para todos</p>
-                    <a href="#" class="goal-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
+    <section id="metas" class="goals-section">
+        <div class="section-header">
+            <h2 data-i18n="goals.title">Metas do ODS 6</h2>
+            <p data-i18n="goals.subtitle">Conheça as 8 metas específicas para alcançar o objetivo de água potável e saneamento para todos</p>
+        </div>
+        
+        <div class="goals-container">
+            <div class="goal-card">
+                <div class="goal-number">6.1</div>
+                <div class="goal-content">
+                    <h3 data-i18n="goals.1_title">Água Potável Universal</h3>
+                    <p data-i18n="goals.1_desc">Até 2030, alcançar o acesso universal e equitativo a água potável e segura para todos</p>
                 </div>
-                <div class="goal-card">
-                    <div class="goal-number">6.2</div>
-                    <h3>Saneamento e Higiene</h3>
-                    <p>Até 2030, alcançar o acesso a saneamento e higiene adequados e equitativos para todos</p>
-                    <a href="#" class="goal-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="goal-card">
+                <div class="goal-number">6.2</div>
+                <div class="goal-content">
+                    <h3 data-i18n="goals.2_title">Saneamento e Higiene</h3>
+                    <p data-i18n="goals.2_desc">Até 2030, alcançar o acesso a saneamento e higiene adequados e equitativos para todos</p>
                 </div>
-                <div class="goal-card">
-                    <div class="goal-number">6.3</div>
-                    <h3>Qualidade da Água</h3>
-                    <p>Melhorar a qualidade da água, reduzindo a poluição e aumentando o tratamento seguro</p>
-                    <a href="#" class="goal-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="goal-card">
+                <div class="goal-number">6.3</div>
+                <div class="goal-content">
+                    <h3 data-i18n="goals.3_title">Qualidade da Água</h3>
+                    <p data-i18n="goals.3_desc">Melhorar a qualidade da água, reduzindo a poluição e eliminando despejo de produtos químicos</p>
                 </div>
-                <div class="goal-card">
-                    <div class="goal-number">6.4</div>
-                    <h3>Eficiência Hídrica</h3>
-                    <p>Aumentar a eficiência do uso da água em todos os setores e reduzir a escassez</p>
-                    <a href="#" class="goal-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="goal-card">
+                <div class="goal-number">6.4</div>
+                <div class="goal-content">
+                    <h3 data-i18n="goals.4_title">Eficiência no Uso</h3>
+                    <p data-i18n="goals.4_desc">Aumentar substancialmente a eficiência do uso da água em todos os setores</p>
                 </div>
-                <div class="goal-card">
-                    <div class="goal-number">6.5</div>
-                    <h3>Gestão Integrada</h3>
-                    <p>Implementar a gestão integrada dos recursos hídricos em todos os níveis</p>
-                    <a href="#" class="goal-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="goal-card">
+                <div class="goal-number">6.5</div>
+                <div class="goal-content">
+                    <h3 data-i18n="goals.5_title">Gestão Integrada</h3>
+                    <p data-i18n="goals.5_desc">Implementar a gestão integrada dos recursos hídricos em todos os níveis</p>
                 </div>
-                <div class="goal-card">
-                    <div class="goal-number">6.6</div>
-                    <h3>Ecossistemas Aquáticos</h3>
-                    <p>Proteger e restaurar ecossistemas relacionados com a água</p>
-                    <a href="#" class="goal-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="goal-card">
+                <div class="goal-number">6.6</div>
+                <div class="goal-content">
+                    <h3 data-i18n="goals.6_title">Ecossistemas Aquáticos</h3>
+                    <p data-i18n="goals.6_desc">Proteger e restaurar ecossistemas relacionados com a água</p>
                 </div>
-                <div class="goal-card">
-                    <div class="goal-number">6.a</div>
-                    <h3>Cooperação Internacional</h3>
-                    <p>Ampliar a cooperação internacional e o apoio aos países em desenvolvimento</p>
-                    <a href="#" class="goal-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="goal-card">
+                <div class="goal-number">6.a</div>
+                <div class="goal-content">
+                    <h3 data-i18n="goals.7_title">Cooperação Internacional</h3>
+                    <p data-i18n="goals.7_desc">Ampliar a cooperação internacional e o apoio aos países em desenvolvimento</p>
                 </div>
-                <div class="goal-card">
-                    <div class="goal-number">6.b</div>
-                    <h3>Participação Local</h3>
-                    <p>Apoiar a participação das comunidades locais na gestão da água e saneamento</p>
-                    <a href="#" class="goal-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="goal-card">
+                <div class="goal-number">6.b</div>
+                <div class="goal-content">
+                    <h3 data-i18n="goals.8_title">Participação Comunitária</h3>
+                    <p data-i18n="goals.8_desc">Apoiar a participação das comunidades locais na melhoria da gestão da água e saneamento</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Seção de Indicadores -->
-    <section id="indicators" class="indicators-section">
-        <div class="container">
-            <h2 class="section-title">Indicadores Globais</h2>
-            <div class="filters">
-                <div class="filter-group">
-                    <label for="region-filter">Região:</label>
-                    <select id="region-filter">
-                        <option value="global">Global</option>
-                        <option value="africa">África</option>
-                        <option value="americas">Américas</option>
-                        <option value="asia">Ásia</option>
-                        <option value="europe">Europa</option>
-                        <option value="oceania">Oceania</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="year-filter">Ano:</label>
-                    <select id="year-filter">
-                        <option value="2023">2023</option>
-                        <option value="2022">2022</option>
-                        <option value="2021">2021</option>
-                        <option value="2020">2020</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="indicator-filter">Indicador:</label>
-                    <select id="indicator-filter">
-                        <option value="water-access">Acesso à água potável</option>
-                        <option value="sanitation">Saneamento básico</option>
-                        <option value="water-quality">Qualidade da água</option>
-                        <option value="water-stress">Estresse hídrico</option>
-                    </select>
-                </div>
+    <!-- Seção de Indicadores Detalhados -->
+    <section id="indicadores" class="detailed-indicators">
+        <div class="section-header">
+            <h2 data-i18n="detailed.title">Indicadores Detalhados</h2>
+            <p data-i18n="detailed.subtitle">Explore os dados por região, ano e tipo de indicador</p>
+        </div>
+        
+        <div class="filters">
+            <div class="filter-group">
+                <label for="region-filter" data-i18n="detailed.region">Região:</label>
+                <select id="region-filter">
+                    <option value="global" data-i18n="detailed.global">Global</option>
+                    <option value="america" data-i18n="detailed.america">Américas</option>
+                    <option value="europe" data-i18n="detailed.europe">Europa</option>
+                    <option value="africa" data-i18n="detailed.africa">África</option>
+                    <option value="asia" data-i18n="detailed.asia">Ásia</option>
+                    <option value="oceania" data-i18n="detailed.oceania">Oceania</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="year-filter" data-i18n="detailed.year">Ano:</label>
+                <select id="year-filter">
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                    <option value="2020">2020</option>
+                    <option value="2019">2019</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="indicator-filter" data-i18n="detailed.indicator">Indicador:</label>
+                <select id="indicator-filter">
+                    <option value="water" data-i18n="detailed.water">Acesso à Água</option>
+                    <option value="sanitation" data-i18n="detailed.sanitation">Saneamento</option>
+                    <option value="quality" data-i18n="detailed.quality">Qualidade da Água</option>
+                    <option value="scarcity" data-i18n="detailed.scarcity">Escassez</option>
+                    <option value="management" data-i18n="detailed.management">Gestão</option>
+                </select>
+            </div>
+            
+            <button id="apply-filters" class="filter-button" data-i18n="detailed.apply">Aplicar Filtros</button>
+        </div>
+        
+        <div class="indicators-display">
+            <div class="map-container">
+                <h3 data-i18n="detailed.map_title">Mapa de Cobertura</h3>
+                <div id="interactive-map"></div>
+                <p class="map-legend" data-i18n="detailed.map_legend">Clique em um país para ver detalhes</p>
             </div>
             
             <div class="charts-container">
-                <div class="chart-wrapper">
-                    <canvas id="bar-chart"></canvas>
+                <h3 data-i18n="detailed.trends_title">Tendências Temporais</h3>
+                <div id="line-chart"></div>
+                <div class="chart-options">
+                    <button class="chart-btn active" data-chart="line" data-i18n="detailed.line_chart">Linha</button>
+                    <button class="chart-btn" data-chart="bar" data-i18n="detailed.bar_chart">Barras</button>
+                    <button class="chart-btn" data-chart="pie" data-i18n="detailed.pie_chart">Pizza</button>
+                    <button class="download-btn" data-i18n="detailed.download">Download Dados</button>
                 </div>
-                <div class="chart-wrapper">
-                    <canvas id="line-chart"></canvas>
-                </div>
-            </div>
-            
-            <div class="map-container">
-                <h3>Distribuição Geográfica do Acesso à Água Potável</h3>
-                <div id="interactive-map"></div>
             </div>
         </div>
     </section>
 
     <!-- Seção de Projetos -->
-    <section id="projects" class="projects-section">
-        <div class="container">
-            <h2 class="section-title">Projetos em Andamento</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <img src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Projeto Água Limpa">
-                    <div class="project-content">
-                        <h3>Água Limpa para Todos</h3>
-                        <p class="project-location"><i class="fas fa-map-marker-alt"></i> África Subsaariana</p>
-                        <p class="project-description">Implementação de sistemas de purificação de água em comunidades rurais sem acesso a água potável.</p>
-                        <div class="project-progress">
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 65%"></div>
-                            </div>
-                            <span>65% concluído</span>
-                        </div>
-                        <a href="#" class="project-link">Detalhes do Projeto</a>
+    <section id="projetos" class="projects-section">
+        <div class="section-header">
+            <h2 data-i18n="projects.title">Projetos em Andamento</h2>
+            <p data-i18n="projects.subtitle">Conheça as iniciativas nacionais e internacionais relacionadas ao ODS 6</p>
+        </div>
+        
+        <div class="projects-grid">
+            <div class="project-card">
+                <img src="images/project1.jpg" alt="Projeto de saneamento rural" loading="lazy">
+                <div class="project-content">
+                    <h3 data-i18n="projects.1_title">Saneamento Rural</h3>
+                    <p class="project-location" data-i18n="projects.1_location">América Latina e África</p>
+                    <p class="project-description" data-i18n="projects.1_desc">Implementação de sistemas de saneamento básico em comunidades rurais isoladas</p>
+                    <div class="project-progress">
+                        <div class="progress-bar" style="width: 65%;"></div>
+                        <span>65% concluído</span>
                     </div>
-                </div>
-                <div class="project-card">
-                    <img src="https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Projeto Saneamento">
-                    <div class="project-content">
-                        <h3>Saneamento Básico Urbano</h3>
-                        <p class="project-location"><i class="fas fa-map-marker-alt"></i> América Latina</p>
-                        <p class="project-description">Construção de infraestrutura de saneamento em áreas urbanas marginalizadas.</p>
-                        <div class="project-progress">
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 42%"></div>
-                            </div>
-                            <span>42% concluído</span>
-                        </div>
-                        <a href="#" class="project-link">Detalhes do Projeto</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <img src="https://images.unsplash.com/photo-1566438480900-0609be27a4be?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Projeto Educação">
-                    <div class="project-content">
-                        <h3>Educação Hídrica</h3>
-                        <p class="project-location"><i class="fas fa-map-marker-alt"></i> Global</p>
-                        <p class="project-description">Programas educacionais sobre conservação e uso sustentável da água em escolas.</p>
-                        <div class="project-progress">
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 78%"></div>
-                            </div>
-                            <span>78% concluído</span>
-                        </div>
-                        <a href="#" class="project-link">Detalhes do Projeto</a>
-                    </div>
+                    <a href="#" class="project-link" data-i18n="projects.details">Ver Detalhes</a>
                 </div>
             </div>
-            <div class="center-btn">
-                <a href="#" class="cta-button secondary">Ver Todos os Projetos</a>
+            
+            <div class="project-card">
+                <img src="images/project2.jpg" alt="Projeto de conservação de rios" loading="lazy">
+                <div class="project-content">
+                    <h3 data-i18n="projects.2_title">Conservação de Rios</h3>
+                    <p class="project-location" data-i18n="projects.2_location">Sudeste Asiático</p>
+                    <p class="project-description" data-i18n="projects.2_desc">Proteção de bacias hidrográficas e redução da poluição industrial</p>
+                    <div class="project-progress">
+                        <div class="progress-bar" style="width: 40%;"></div>
+                        <span>40% concluído</span>
+                    </div>
+                    <a href="#" class="project-link" data-i18n="projects.details">Ver Detalhes</a>
+                </div>
             </div>
+            
+            <div class="project-card">
+                <img src="images/project3.jpg" alt="Projeto de capacitação comunitária" loading="lazy">
+                <div class="project-content">
+                    <h3 data-i18n="projects.3_title">Capacitação Comunitária</h3>
+                    <p class="project-location" data-i18n="projects.3_location">África Subsaariana</p>
+                    <p class="project-description" data-i18n="projects.3_desc">Treinamento em gestão de recursos hídricos para líderes comunitários</p>
+                    <div class="project-progress">
+                        <div class="progress-bar" style="width: 80%;"></div>
+                        <span>80% concluído</span>
+                    </div>
+                    <a href="#" class="project-link" data-i18n="projects.details">Ver Detalhes</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="projects-cta">
+            <p data-i18n="projects.cta">Quer saber como participar ou apoiar nossos projetos?</p>
+            <a href="#contato" class="cta-button" data-i18n="projects.contact">Entre em Contato</a>
         </div>
     </section>
 
     <!-- Seção Quem Somos -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <h2 class="section-title">Quem Somos</h2>
+    <section id="quem-somos" class="about-section">
+        <div class="about-container">
             <div class="about-content">
-                <div class="about-text">
-                    <p>A ONU, por meio do Programa das Nações Unidas para o Desenvolvimento (PNUD), lidera os esforços globais para alcançar os Objetivos de Desenvolvimento Sustentável (ODS), incluindo o ODS 6 - Água Potável e Saneamento.</p>
-                    <p>Nossa missão é garantir a disponibilidade e gestão sustentável da água e saneamento para todas as pessoas até 2030, trabalhando em parceria com governos, sociedade civil e setor privado.</p>
-                    <div class="mission-vision">
-                        <div class="mission">
-                            <h3><i class="fas fa-bullseye"></i> Missão</h3>
-                            <p>Promover o acesso universal a água potável segura e saneamento adequado, reduzindo desigualdades e protegendo os ecossistemas aquáticos.</p>
-                        </div>
-                        <div class="vision">
-                            <h3><i class="fas fa-eye"></i> Visão</h3>
-                            <p>Um mundo onde todas as pessoas, independentemente de sua localização ou condição socioeconômica, tenham acesso sustentável a água limpa e saneamento básico.</p>
-                        </div>
+                <h2 data-i18n="about.title">Quem Somos</h2>
+                <p data-i18n="about.description">A equipe do ODS 6 da ONU trabalha globalmente para alcançar as metas de água potável e saneamento para todos até 2030. Nossa missão é coordenar esforços internacionais, fornecer dados confiáveis e implementar projetos que transformem a realidade de milhões de pessoas.</p>
+                
+                <div class="mission-vision">
+                    <div class="mission">
+                        <h3 data-i18n="about.mission">Missão</h3>
+                        <p data-i18n="about.mission_text">Garantir o acesso universal à água potável e saneamento básico, promovendo a gestão sustentável dos recursos hídricos em todo o mundo.</p>
+                    </div>
+                    <div class="vision">
+                        <h3 data-i18n="about.vision">Visão</h3>
+                        <p data-i18n="about.vision_text">Um mundo onde todas as pessoas, independentemente de sua localização ou condição socioeconômica, tenham acesso seguro a água limpa e saneamento adequado.</p>
                     </div>
                 </div>
-                <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Equipe ODS 6">
+                
+                <div class="partners">
+                    <h3 data-i18n="about.partners">Parceiros Globais</h3>
+                    <div class="partner-logos">
+                        <img src="images/partner1.png" alt="UNICEF" loading="lazy">
+                        <img src="images/partner2.png" alt="World Health Organization" loading="lazy">
+                        <img src="images/partner3.png" alt="World Bank" loading="lazy">
+                        <img src="images/partner4.png" alt="Global Water Partnership" loading="lazy">
+                    </div>
                 </div>
             </div>
             
-            <h3 class="team-title">Nossa Equipe</h3>
+            <div class="about-image">
+                <img src="images/team.jpg" alt="Equipe da ONU trabalhando" loading="lazy">
+            </div>
+        </div>
+        
+        <div class="team-section">
+            <h3 data-i18n="about.team">Nossa Equipe</h3>
             <div class="team-grid">
                 <div class="team-member">
-                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Membro da equipe">
-                    <h4>Dra. Ana Silva</h4>
-                    <p>Coordenadora Global</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fas fa-envelope"></i></a>
-                    </div>
+                    <img src="images/team1.jpg" alt="Diretor do Programa" loading="lazy">
+                    <h4>Dr. Carlos Mendez</h4>
+                    <p class="position" data-i18n="about.director">Diretor do Programa</p>
+                    <p class="bio" data-i18n="about.director_bio">Especialista em gestão de recursos hídricos com 20 anos de experiência em projetos internacionais</p>
                 </div>
+                
                 <div class="team-member">
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Membro da equipe">
-                    <h4>Dr. Carlos Mendes</h4>
-                    <p>Especialista em Saneamento</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fas fa-envelope"></i></a>
-                    </div>
+                    <img src="images/team2.jpg" alt="Coordenadora de Projetos" loading="lazy">
+                    <h4>Ana Beatriz Silva</h4>
+                    <p class="position" data-i18n="about.coordinator">Coordenadora de Projetos</p>
+                    <p class="bio" data-i18n="about.coordinator_bio">Engenheira ambiental com ampla experiência em saneamento básico em comunidades vulneráveis</p>
                 </div>
+                
                 <div class="team-member">
-                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Membro da equipe">
-                    <h4>Dra. Fatima Khan</h4>
-                    <p>Coordenadora Regional - Ásia</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fas fa-envelope"></i></a>
-                    </div>
+                    <img src="images/team3.jpg" alt="Analista de Dados" loading="lazy">
+                    <h4>James Okonjo</h4>
+                    <p class="position" data-i18n="about.analyst">Analista de Dados</p>
+                    <p class="bio" data-i18n="about.analyst_bio">Especialista em indicadores de desenvolvimento sustentável e sistemas de monitoramento</p>
                 </div>
+                
                 <div class="team-member">
-                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Membro da equipe">
-                    <h4>Dr. Kwame Osei</h4>
-                    <p>Coordenador Regional - África</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fas fa-envelope"></i></a>
-                    </div>
+                    <img src="images/team4.jpg" alt="Especialista em Políticas" loading="lazy">
+                    <h4>Sophie Laurent</h4>
+                    <p class="position" data-i18n="about.policy">Especialista em Políticas</p>
+                    <p class="bio" data-i18n="about.policy_bio">Advogada internacional focada em legislação hídrica e direitos humanos</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Seção Blog/Notícias -->
-    <section class="news-section">
-        <div class="container">
-            <h2 class="section-title">Últimas Notícias</h2>
-            <div class="news-grid">
-                <div class="news-card">
-                    <div class="news-image">
-                        <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Notícia 1">
-                        <div class="news-date">
-                            <span class="day">15</span>
-                            <span class="month">Jun</span>
-                        </div>
-                    </div>
-                    <div class="news-content">
-                        <h3>ONU anuncia novo fundo para água potável na África</h3>
-                        <p class="news-excerpt">Novo programa visa levar água potável a 10 milhões de pessoas na África Subsaariana até 2025...</p>
-                        <a href="#" class="news-link">Ler mais <i class="fas fa-arrow-right"></i></a>
+    <section id="blog" class="blog-section">
+        <div class="section-header">
+            <h2 data-i18n="blog.title">Últimas Notícias</h2>
+            <p data-i18n="blog.subtitle">Acompanhe as novidades sobre o ODS 6 no mundo</p>
+        </div>
+        
+        <div class="blog-grid">
+            <article class="blog-post">
+                <div class="post-image">
+                    <img src="images/news1.jpg" alt="Conferência sobre água" loading="lazy">
+                    <div class="post-date">
+                        <span class="day">15</span>
+                        <span class="month" data-i18n="blog.mar">Mar</span>
+                        <span class="year">2023</span>
                     </div>
                 </div>
-                <div class="news-card">
-                    <div class="news-image">
-                        <img src="https://images.unsplash.com/photo-1476231682828-37e571bc172f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Notícia 2">
-                        <div class="news-date">
-                            <span class="day">03</span>
-                            <span class="month">Jun</span>
-                        </div>
-                    </div>
-                    <div class="news-content">
-                        <h3>Relatório global mostra progresso no saneamento básico</h3>
-                        <p class="news-excerpt">Novos dados indicam que 2 bilhões de pessoas ganharam acesso a saneamento básico desde 2000...</p>
-                        <a href="#" class="news-link">Ler mais <i class="fas fa-arrow-right"></i></a>
+                <div class="post-content">
+                    <h3 data-i18n="blog.1_title">Conferência da ONU sobre Água 2023</h3>
+                    <p class="post-excerpt" data-i18n="blog.1_excerpt">Os principais resultados e compromissos assumidos na primeira conferência global sobre água em quase 50 anos</p>
+                    <a href="#" class="read-more" data-i18n="blog.read">Ler Mais</a>
+                </div>
+            </article>
+            
+            <article class="blog-post">
+                <div class="post-image">
+                    <img src="images/news2.jpg" alt="Tecnologia para água limpa" loading="lazy">
+                    <div class="post-date">
+                        <span class="day">28</span>
+                        <span class="month" data-i18n="blog.feb">Fev</span>
+                        <span class="year">2023</span>
                     </div>
                 </div>
-                <div class="news-card">
-                    <div class="news-image">
-                        <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Notícia 3">
-                        <div class="news-date">
-                            <span class="day">28</span>
-                            <span class="month">Mai</span>
-                        </div>
-                    </div>
-                    <div class="news-content">
-                        <h3>Parceria com setor privado amplia projetos de reúso de água</h3>
-                        <p class="news-excerpt">Iniciativa conjunta entre ONU e empresas multinacionais promete aumentar em 40% o reúso de água industrial...</p>
-                        <a href="#" class="news-link">Ler mais <i class="fas fa-arrow-right"></i></a>
+                <div class="post-content">
+                    <h3 data-i18n="blog.2_title">Inovações em Tecnologia para Água Limpa</h3>
+                    <p class="post-excerpt" data-i18n="blog.2_excerpt">Conheça as novas tecnologias que estão levando água potável a comunidades remotas</p>
+                    <a href="#" class="read-more" data-i18n="blog.read">Ler Mais</a>
+                </div>
+            </article>
+            
+            <article class="blog-post">
+                <div class="post-image">
+                    <img src="images/news3.jpg" alt="Mulheres e água" loading="lazy">
+                    <div class="post-date">
+                        <span class="day">10</span>
+                        <span class="month" data-i18n="blog.jan">Jan</span>
+                        <span class="year">2023</span>
                     </div>
                 </div>
-            </div>
-            <div class="center-btn">
-                <a href="#" class="cta-button secondary">Ver Todas as Notícias</a>
-            </div>
+                <div class="post-content">
+                    <h3 data-i18n="blog.3_title">O Papel das Mulheres na Gestão da Água</h3>
+                    <p class="post-excerpt" data-i18n="blog.3_excerpt">Como o empoderamento feminino está transformando a gestão comunitária de recursos hídricos</p>
+                    <a href="#" class="read-more" data-i18n="blog.read">Ler Mais</a>
+                </div>
+            </article>
+        </div>
+        
+        <div class="blog-cta">
+            <a href="#" class="cta-button-outline" data-i18n="blog.all_news">Ver Todas as Notícias</a>
         </div>
     </section>
 
-    <!-- Seção Calculadora -->
+    <!-- Seção Calculadora de Consumo -->
     <section class="calculator-section">
-        <div class="container">
-            <h2 class="section-title">Calculadora de Consumo de Água</h2>
-            <div class="calculator-container">
-                <div class="calculator-form">
+        <div class="calculator-container">
+            <div class="calculator-content">
+                <h2 data-i18n="calc.title">Calculadora de Consumo de Água</h2>
+                <p data-i18n="calc.subtitle">Descubra quanto água você consome e como reduzir seu impacto</p>
+                
+                <form id="water-calculator">
                     <div class="form-group">
-                        <label for="household">Número de pessoas na residência:</label>
-                        <input type="number" id="household" min="1" max="20" value="4">
+                        <label for="household" data-i18n="calc.people">Número de pessoas na casa:</label>
+                        <input type="number" id="household" min="1" max="20" value="1">
                     </div>
+                    
                     <div class="form-group">
-                        <label for="shower">Banhos por dia (por pessoa):</label>
-                        <input type="number" id="shower" min="0" max="10" value="1" step="0.5">
+                        <label data-i18n="calc.habits">Seus hábitos:</label>
+                        <div class="habit-option">
+                            <input type="checkbox" id="shower" checked>
+                            <label for="shower" data-i18n="calc.shower">Banhos diários</label>
+                        </div>
+                        <div class="habit-option">
+                            <input type="checkbox" id="laundry" checked>
+                            <label for="laundry" data-i18n="calc.laundry">Lavar roupa regularmente</label>
+                        </div>
+                        <div class="habit-option">
+                            <input type="checkbox" id="dishes" checked>
+                            <label for="dishes" data-i18n="calc.dishes">Lavar louça diariamente</label>
+                        </div>
+                        <div class="habit-option">
+                            <input type="checkbox" id="garden" checked>
+                            <label for="garden" data-i18n="calc.garden">Regar jardim/plantas</label>
+                        </div>
                     </div>
+                    
                     <div class="form-group">
-                        <label for="shower-time">Duração média do banho (minutos):</label>
-                        <input type="number" id="shower-time" min="1" max="60" value="10">
+                        <label for="water-saving" data-i18n="calc.measures">Medidas de economia:</label>
+                        <select id="water-saving">
+                            <option value="none" data-i18n="calc.none">Nenhuma</option>
+                            <option value="some" data-i18n="calc.some">Algumas</option>
+                            <option value="many" data-i18n="calc.many">Muitas</option>
+                        </select>
                     </div>
-                    <div class="form-group">
-                        <label for="laundry">Lavagens de roupa por semana:</label>
-                        <input type="number" id="laundry" min="0" max="20" value="3">
-                    </div>
-                    <div class="form-group">
-                        <label for="dishes">Lavagens de louça por dia:</label>
-                        <input type="number" id="dishes" min="0" max="10" value="2">
-                    </div>
-                    <div class="form-group">
-                        <label for="garden">Rega do jardim (minutos por dia):</label>
-                        <input type="number" id="garden" min="0" max="120" value="0">
-                    </div>
-                    <button id="calculate-btn" class="cta-button">Calcular Consumo</button>
-                </div>
-                <div class="calculator-results">
-                    <h3>Seu Consumo Estimado</h3>
-                    <div class="result-item">
-                        <span class="result-label">Diário:</span>
-                        <span class="result-value" id="daily-result">0 litros</span>
-                    </div>
-                    <div class="result-item">
-                        <span class="result-label">Semanal:</span>
-                        <span class="result-value" id="weekly-result">0 litros</span>
-                    </div>
-                    <div class="result-item">
-                        <span class="result-label">Mensal:</span>
-                        <span class="result-value" id="monthly-result">0 litros</span>
-                    </div>
-                    <div class="result-item">
-                        <span class="result-label">Anual:</span>
-                        <span class="result-value" id="yearly-result">0 litros</span>
+                    
+                    <button type="button" id="calculate-btn" class="calc-button" data-i18n="calc.calculate">Calcular Consumo</button>
+                </form>
+            </div>
+            
+            <div class="calculator-result">
+                <div class="result-card" id="result-display">
+                    <h3 data-i18n="calc.your_consumption">Seu Consumo Estimado</h3>
+                    <div class="consumption-value">
+                        <span id="consumption-number">0</span>
+                        <span>litros/dia</span>
                     </div>
                     <div class="comparison">
-                        <div class="progress-container">
-                            <div class="progress-bar">
-                                <div class="progress-fill" id="comparison-bar" style="width: 0%"></div>
-                            </div>
-                            <div class="progress-labels">
-                                <span>0%</span>
-                                <span>Média local</span>
-                                <span>200%</span>
-                            </div>
+                        <p data-i18n="calc.average">Média global: <span>150 litros/dia</span></p>
+                        <div class="comparison-bar">
+                            <div class="your-bar" id="user-bar"></div>
+                            <div class="average-bar"></div>
                         </div>
-                        <p id="comparison-text">Seu consumo é 0% da média local</p>
                     </div>
-                    <div class="tips">
-                        <h4>Dicas para Reduzir:</h4>
-                        <ul id="tips-list">
-                            <li>Reduza o tempo de banho em 1 minuto</li>
-                            <li>Feche a torneira ao escovar os dentes</li>
-                            <li>Use máquina de lavar com carga completa</li>
+                    <div class="savings-tips" id="savings-tips">
+                        <h4 data-i18n="calc.tips">Dicas para economizar:</h4>
+                        <ul>
+                            <li data-i18n="calc.tip1">Reduza o tempo no chuveiro</li>
+                            <li data-i18n="calc.tip2">Conserte vazamentos</li>
+                            <li data-i18n="calc.tip3">Use máquina de lavar com carga completa</li>
                         </ul>
                     </div>
                 </div>
@@ -447,202 +501,103 @@
         </div>
     </section>
 
+    <!-- Seção de Downloads -->
+    <section class="downloads-section">
+        <div class="section-header">
+            <h2 data-i18n="downloads.title">Materiais para Download</h2>
+            <p data-i18n="downloads.subtitle">Acesse relatórios, guias e materiais educativos sobre o ODS 6</p>
+        </div>
+        
+        <div class="downloads-grid">
+            <div class="download-card">
+                <div class="download-icon">
+                    <i class="fas fa-file-pdf"></i>
+                </div>
+                <div class="download-content">
+                    <h3 data-i18n="downloads.1_title">Relatório Anual ODS 6 2023</h3>
+                    <p class="download-description" data-i18n="downloads.1_desc">Progresso global em direção às metas de água e saneamento</p>
+                    <div class="download-meta">
+                        <span class="file-size">PDF • 2.4MB</span>
+                        <a href="#" class="download-btn" data-i18n="downloads.download">Download</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="download-card">
+                <div class="download-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="download-content">
+                    <h3 data-i18n="downloads.2_title">Guia de Boas Práticas</h3>
+                    <p class="download-description" data-i18n="downloads.2_desc">Como implementar projetos de água e saneamento em comunidades</p>
+                    <div class="download-meta">
+                        <span class="file-size">PDF • 1.8MB</span>
+                        <a href="#" class="download-btn" data-i18n="downloads.download">Download</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="download-card">
+                <div class="download-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <div class="download-content">
+                    <h3 data-i18n="downloads.3_title">Indicadores ODS 6 por País</h3>
+                    <p class="download-description" data-i18n="downloads.3_desc">Dados detalhados sobre acesso à água e saneamento</p>
+                    <div class="download-meta">
+                        <span class="file-size">XLSX • 3.1MB</span>
+                        <a href="#" class="download-btn" data-i18n="downloads.download">Download</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="download-card">
+                <div class="download-icon">
+                    <i class="fas fa-images"></i>
+                </div>
+                <div class="download-content">
+                    <h3 data-i18n="downloads.4_title">Kit de Divulgação ODS 6</h3>
+                    <p class="download-description" data-i18n="downloads.4_desc">Materiais gráficos para campanhas de conscientização</p>
+                    <div class="download-meta">
+                        <span class="file-size">ZIP • 5.2MB</span>
+                        <a href="#" class="download-btn" data-i18n="downloads.download">Download</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="newsletter">
+            <h3 data-i18n="downloads.newsletter">Receba materiais exclusivos</h3>
+            <form id="newsletter-form">
+                <input type="email" placeholder="Seu e-mail" data-i18n="downloads.email" required>
+                <button type="submit" data-i18n="downloads.subscribe">Assinar</button>
+            </form>
+            <p class="privacy-notice" data-i18n="downloads.privacy">Respeitamos sua privacidade. Você pode cancelar a qualquer momento.</p>
+        </div>
+    </section>
+
     <!-- Seção FAQ -->
     <section class="faq-section">
-        <div class="container">
-            <h2 class="section-title">Perguntas Frequentes</h2>
-            <div class="faq-container">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>O que é o ODS 6?</h3>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>O Objetivo de Desenvolvimento Sustentável 6 (ODS 6) faz parte da Agenda 2030 da ONU e visa "garantir a disponibilidade e gestão sustentável da água e saneamento para todos". Ele compreende 8 metas específicas que abordam desde o acesso à água potável até a proteção de ecossistemas aquáticos.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>Como posso contribuir para o ODS 6?</h3>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Existem várias maneiras de contribuir: reduzindo seu consumo de água, apoiando organizações que trabalham com água e saneamento, pressionando autoridades por melhorias na infraestrutura local, educando outros sobre a importância da conservação da água, e participando de iniciativas de limpeza de rios e lagos.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>Quais são os maiores desafios para alcançar o ODS 6?</h3>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Os principais desafios incluem: crescimento populacional e urbanização, mudanças climáticas que afetam a disponibilidade de água, falta de investimento em infraestrutura, poluição de fontes hídricas, desigualdades no acesso entre regiões e grupos populacionais, e a necessidade de cooperação internacional para gestão de recursos hídricos transfronteiriços.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>Como o progresso do ODS 6 é medido?</h3>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>O progresso é medido através de 11 indicadores globais que monitoram aspectos como: porcentagem da população com acesso a água potável gerenciada com segurança, porcentagem com acesso a saneamento básico, qualidade da água, eficiência no uso da água, grau de implementação da gestão integrada de recursos hídricos, e extensão de ecossistemas relacionados com a água. Esses dados são coletados por agências da ONU em colaboração com governos nacionais.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>Quais países têm mais desafios com o ODS 6?</h3>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Os países com maiores desafios estão principalmente na África Subsaariana, onde cerca de 40% da população ainda não tem acesso a água potável básica. Partes da Ásia Meridional e Sudeste Asiático, bem como algumas regiões da América Latina e Caribe, também enfrentam desafios significativos, especialmente em áreas rurais e comunidades de baixa renda em centros urbanos.</p>
-                    </div>
-                </div>
-            </div>
+        <div class="section-header">
+            <h2 data-i18n="faq.title">Perguntas Frequentes</h2>
+            <p data-i18n="faq.subtitle">Encontre respostas para as dúvidas mais comuns sobre o ODS 6</p>
         </div>
-    </section>
-
-    <!-- Seção Contato -->
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <h2 class="section-title">Entre em Contato</h2>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <div class="info-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <h4>Endereço</h4>
-                            <p>Programa das Nações Unidas para o Desenvolvimento<br>
-                            Sede da ONU, Nova York, NY 10017, EUA</p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <h4>Telefone</h4>
-                            <p>+1 (212) 906-5000</p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h4>Email</h4>
-                            <p>ods6@un.org</p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-clock"></i>
-                        <div>
-                            <h4>Horário de Funcionamento</h4>
-                            <p>Segunda a Sexta: 9:00 - 17:00 (GMT-4)</p>
-                        </div>
-                    </div>
-                    <div class="social-media">
-                        <h4>Siga-nos</h4>
-                        <div class="social-icons">
-                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#"><i class="fab fa-youtube"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Nome Completo*</label>
-                            <input type="text" id="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email*</label>
-                            <input type="email" id="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Assunto</label>
-                            <input type="text" id="subject">
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Mensagem*</label>
-                            <textarea id="message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="cta-button">Enviar Mensagem</button>
-                    </form>
+        
+        <div class="faq-container">
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false" aria-controls="faq1">
+                    <span data-i18n="faq.1_question">O que é o ODS 6?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer" id="faq1">
+                    <p data-i18n="faq.1_answer">O ODS 6 é o sexto Objetivo de Desenvolvimento Sustentável da ONU, que visa "assegurar a disponibilidade e gestão sustentável da água e saneamento para todos" até 2030. Ele faz parte da Agenda 2030 para o Desenvolvimento Sustentável, adotada por todos os Estados-Membros das Nações Unidas em 2015.</p>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Newsletter -->
-    <section class="newsletter-section">
-        <div class="container">
-            <div class="newsletter-container">
-                <div class="newsletter-text">
-                    <h3>Assine nossa Newsletter</h3>
-                    <p>Receba atualizações sobre nossos projetos, relatórios e oportunidades de participar.</p>
-                </div>
-                <form class="newsletter-form">
-                    <input type="email" placeholder="Seu melhor email" required>
-                    <button type="submit" class="cta-button">Assinar</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Rodapé -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-logo">
-                    <img src="https://brasil.un.org/profiles/undg_brasil/themes/custom/undg/images/SDG-6.png" alt="ODS 6 Logo">
-                    <p>Trabalhando para garantir água potável e saneamento para todos até 2030.</p>
-                </div>
-                <div class="footer-links">
-                    <h4>Links Rápidos</h4>
-                    <ul>
-                        <li><a href="#home">Início</a></li>
-                        <li><a href="#goals">Metas</a></li>
-                        <li><a href="#indicators">Indicadores</a></li>
-                        <li><a href="#projects">Projetos</a></li>
-                        <li><a href="#about">Quem Somos</a></li>
-                        <li><a href="#contact">Contato</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>Links Institucionais</h4>
-                    <ul>
-                        <li><a href="https://www.un.org" target="_blank">ONU</a></li>
-                        <li><a href="https://www.undp.org" target="_blank">PNUD</a></li>
-                        <li><a href="https://www.unwater.org" target="_blank">UN Water</a></li>
-                        <li><a href="https://www.ana.gov.br" target="_blank">ANA - Brasil</a></li>
-                        <li><a href="https://www.gov.br/governodigital" target="_blank">Governo Digital</a></li>
-                    </ul>
-                </div>
-                <div class="footer-contact">
-                    <h4>Contato</h4>
-                    <p><i class="fas fa-map-marker-alt"></i> Sede da ONU, Nova York, EUA</p>
-                    <p><i class="fas fa-phone"></i> +1 (212) 906-5000</p>
-                    <p><i class="fas fa-envelope"></i> ods6@un.org</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <div class="copyright">
-                    <p>&copy; 2023 ONU - ODS 6. Todos os direitos reservados.</p>
-                </div>
-                <div class="footer-legal">
-                    <a href="#">Política de Privacidade</a>
-                    <a href="#">Termos de Uso</a>
-                    <a href="#">Acessibilidade</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Botão de voltar ao topo -->
-    <button id="backToTop" title="Voltar ao topo"><i class="fas fa-arrow-up"></i></button>
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="script.js"></script>
-</body>
-</html>
+            
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false" aria-controls="faq2">
+                    <span data-i18n="faq.2_question">Quais são as principais metas do ODS 6?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer" id="faq2">
+                    <p data-i18n="faq.2_answer">O ODS 6 tem oito metas específicas que incluem: acesso universal a água potável segura e acess
